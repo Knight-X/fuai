@@ -14,9 +14,10 @@ from face.models import FaceFeature
 
 @csrf_exempt
 def index(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.FILES['img']:
         pid = request.POST.get('person')
-        handle_uploaded_file(request.FILES['file'])
+        img = request.FILES['img']
+        handle_uploaded_file(img)
         infos = ff.face_info()
         for info in infos:
             face = FaceFeature(
@@ -24,9 +25,7 @@ def index(request):
                 feature = json.dumps(info.tolist()),
             )
             face.save()
-    else:
-        return HttpResponse("Upload Filed")
-    return HttpResponse("Hello world")
+    return render(request, 'face/upload.html')
 
 def handle_uploaded_file(f):
     with open('./tmp.jpg', 'wb+') as dest:
