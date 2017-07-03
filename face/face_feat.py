@@ -8,7 +8,7 @@ import numpy as np
 def face_info():
     face_rec_model_path = "./dlib_face_recognition_resnet_model_v1.dat"
     predictor_path = "./shape_predictor_68_face_landmarks.dat"
-    f = "./bill.jpg"
+    f = "./tmp.jpg" 
 
 
     detector = dlib.get_frontal_face_detector()
